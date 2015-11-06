@@ -1,12 +1,12 @@
 <?php
 
-namespace nizsheanez\assetConverter;
+namespace jarrus90\assetConverter;
 
 use Yii;
 
 /**
  * Class Scss
- * @package nizsheanez\assetConverter
+ * @package jarrus90\assetConverter
  * @author Andrey Izman <izmanw@gmail.com>
  */
 class Scss extends Parser
