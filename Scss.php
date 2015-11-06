@@ -12,11 +12,6 @@ use Yii;
 class Scss extends Parser
 {
     /**
-     * @var bool compass support
-     */
-    public $enableCompass = true;
-
-    /**
      * @var array paths to import files
      */
     public $importPaths = [];
@@ -51,7 +46,6 @@ class Scss extends Parser
     public function parse($src, $dst, $options)
     {
         $this->importPaths   = !empty($options['importPaths']) ? $options['importPaths'] : $this->importPaths;
-        $this->enableCompass = isset($options['enableCompass']) ? $options['enableCompass'] : $this->enableCompass;
         $this->lineComments  = isset($options['lineComments']) ? $options['lineComments'] : $this->lineComments;
         $this->outputStyle   = isset($options['outputStyle']) ? $options['outputStyle'] : $this->outputStyle;
         $this->outputStyle   = strtolower($this->outputStyle);
@@ -70,10 +64,6 @@ class Scss extends Parser
                 $this->lineComments = false;
             }
             $parser->setFormatter('Leafo\\ScssPhp\\Formatter\\' . ucfirst($this->outputStyle));
-        }
-
-        if ($this->enableCompass) {
-            new \scss_compass($parser);
         }
 
         if (!file_exists($src)) {
