@@ -20,6 +20,5 @@
     },
     "autoload": {
         "psr-0": { "jarrus90\\assetConverter\\": "" }
-    },
-    "target-dir": "jarrus90/assetConverter"
+    }
 }
