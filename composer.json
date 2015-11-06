@@ -1,0 +1,26 @@
+{
+    "name": "jarrus90/yii2-asset-converter",
+    "description": "Sass, Scss converter for Yii2. No system requires. yii2-composer support, customizing of output directory",
+    "type": "yii2-extension",
+    "keywords": ["yii", "yii2", "asset", "converter", "sass", "scss", "compass"],
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Vladimir Stovbchatij",
+            "email": "fake@gmail.com",
+            "role": "Author"
+        }
+    ],
+    "require" : {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "2.*",
+        "yiisoft/yii2-composer": "2.*",
+        "leafo/scssphp": "dev-master",
+        "leafo/scssphp-compass": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "jarrus90\\assetConverter\\": "" }
+    },
+    "target-dir": "jarrus90/assetConverter"
+}
