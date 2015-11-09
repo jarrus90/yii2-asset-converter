@@ -19,6 +19,6 @@
         "leafo/scssphp": "*"
     },
     "autoload": {
-        "psr-0": { "jarrus90\\assetConverter\\": "" }
+        "psr-4": { "jarrus90\\assetConverter\\": "" }
     }
 }
