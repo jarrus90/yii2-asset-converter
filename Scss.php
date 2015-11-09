@@ -33,6 +33,7 @@ class Scss extends Parser
         'compressed', 'crunched', 'expanded', 'nested',
     ];
 
+    public $cachePath;
 
     /**
      * Parse a Scss file and convert it into CSS
@@ -45,31 +46,28 @@ class Scss extends Parser
      */
     public function parse($src, $dst, $options)
     {
+        if (!file_exists($src)) {
+            throw new \Exception("Failed to open file \"$src\"");
+        }
         $this->importPaths   = !empty($options['importPaths']) ? $options['importPaths'] : $this->importPaths;
         $this->lineComments  = isset($options['lineComments']) ? $options['lineComments'] : $this->lineComments;
         $this->outputStyle   = isset($options['outputStyle']) ? $options['outputStyle'] : $this->outputStyle;
         $this->outputStyle   = strtolower($this->outputStyle);
-
         $parser = new \Leafo\ScssPhp\Compiler();
         if (!empty($this->importPaths) && is_array($this->importPaths)) {
-            $paths = [''];
             foreach ($this->importPaths as $path) {
                 $paths[] = Yii::getAlias($path);
             }
             $parser->setImportPaths($paths);
+        } else {
+            $parser->setImportPaths([dirname($src)]);
         }
-
         if (in_array($this->outputStyle, $this->formatters)) {
             if ($this->lineComments && in_array($this->outputStyle, ['compressed', 'crunched'])) {
                 $this->lineComments = false;
             }
             $parser->setFormatter('Leafo\\ScssPhp\\Formatter\\' . ucfirst($this->outputStyle));
         }
-
-        if (!file_exists($src)) {
-            throw new \Exception("Failed to open file \"$src\"");
-        }
-
         if ($this->lineComments) {
             $content = self::insertLineComments($src, self::getRelativeFilename($src, $dst));
             file_put_contents($dst, self::parseLineComments($parser->compile($content, $src)));

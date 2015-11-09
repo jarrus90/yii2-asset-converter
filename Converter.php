@@ -66,7 +66,6 @@ class Converter extends \yii\web\AssetConverter
         if (!isset($this->parsers[$ext])) {
             return parent::convert($asset, $basePath);
         }
-
         $parserConfig = ArrayHelper::merge($this->defaultParsersOptions[$ext], $this->parsers[$ext]);
 
         $this->destinationDir = $this->destinationDir ? trim($this->destinationDir, '/') : '';
@@ -75,23 +74,13 @@ class Converter extends \yii\web\AssetConverter
         $from = $basePath . '/' . ltrim($asset, '/');
         $to = $basePath . '/' . $resultFile;
 
-        if (!$this->needRecompile($from, $to)) {
+        if (!$this->needRecompile($from, $to) && !$this->force) {
             return $resultFile;
         }
-
         $this->checkDestinationDir($basePath, $resultFile);
-
-        $asConsoleCommand = isset($parserConfig['asConsoleCommand']) && $parserConfig['asConsoleCommand'];
-        if ($asConsoleCommand) { //can't use parent function because it not support destination directory
-            if (isset($this->commands[$ext])) {
-                list ($distExt, $command) = $this->commands[$ext];
-                $this->runCommand($command, $basePath, $asset, $resultFile);
-            }
-        } else {
-            $parser = new $parserConfig['class']($parserConfig['options']);
-            $parserOptions = isset($parserConfig['options']) ? $parserConfig['options'] : array();
-            $parser->parse($from, $to, $parserOptions);
-        }
+        $parser = new $parserConfig['class']($parserConfig['options']);
+        $parserOptions = isset($parserConfig['options']) ? $parserConfig['options'] : array();
+        $parser->parse($from, $to, $parserOptions);
 
         if (YII_DEBUG) {
             Yii::info("Converted $asset into $resultFile ", __CLASS__);
