@@ -8,8 +8,9 @@
     "authors": [
         {
             "name": "Vladimir Stovbchatij",
-            "email": "fake@gmail.com",
-            "role": "Author"
+            "email": "unreality1990@gmail.com",
+            "homepage": "https://github.com/jarrus90",
+            "role": "Developer"
         }
     ],
     "require" : {
