@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2011 Michel Bobillier Aka Athos99
@@ -9,11 +10,10 @@
 namespace jarrus90\assetConverter;
 
 use Yii;
-use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 
-class Converter extends \yii\web\AssetConverter
-{
+class Converter extends \yii\web\AssetConverter {
+
     /**
      * @var array parsers
      */
@@ -31,7 +31,6 @@ class Converter extends \yii\web\AssetConverter
             'options' => [] // optional options
         ],
     ];
-
     public $parsers = [];
 
     /**
@@ -55,8 +54,7 @@ class Converter extends \yii\web\AssetConverter
      * @param string $basePath the directory the $asset is relative to.
      * @return string the converted asset file path, relative to $basePath.
      */
-    public function convert($asset, $basePath)
-    {
+    public function convert($asset, $basePath) {
         $pos = strrpos($asset, '.');
         if ($pos === false) {
             return parent::convert($asset, $basePath);
@@ -89,16 +87,15 @@ class Converter extends \yii\web\AssetConverter
         return $resultFile;
     }
 
-    public function needRecompile($from, $to)
-    {
+    public function needRecompile($from, $to) {
         return $this->force || (@filemtime($to) < filemtime($from));
     }
 
-    public function checkDestinationDir($basePath, $file)
-    {
+    public function checkDestinationDir($basePath, $file) {
         $distDir = dirname($basePath . '/' . $file);
         if (!is_dir($distDir)) {
             mkdir($distDir, $this->destinationDirPerms, true);
         }
     }
+
 }
