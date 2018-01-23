@@ -2,9 +2,9 @@
 
 namespace jarrus90\assetConverter;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
-abstract class Parser extends Object {
+abstract class Parser extends BaseObject {
 
     /**
      * Parse a asset file.
